@@ -26,7 +26,11 @@ function mdm_announce_notes() {
   //アナウンス上で、内容が”expanded”しているものを取得
   const search_Parser  = mine_Parser.from('<div class="tag"><span class="').to(`</a></div>`).iterate();
   const tagName = search_Parser[0].match(/(?<=">).*(?=<\/span><\/div>)/);
-  const tiltle = search_Parser[0].match(/(?<=\.html">).*/);
+  console.log(search_Parser[0])
+  const pattern = new RegExp(`(?<=${mdmSupportUrl.replace(/\//g, "\\/")}.*">).*`);
+  console.log('pattern',pattern)
+  const tiltle = search_Parser[0].match(pattern);
+  console.log('tiltle',tiltle)
 
   //シート＞題名＞B列最終行値取得、行の位置取得
   const selectCell = mine_sheet.getRange(2,3).getNextDataCell(SpreadsheetApp.Direction.DOWN);//(https://moripro.net/gas-get-specified-lastcol-lastrow/)
